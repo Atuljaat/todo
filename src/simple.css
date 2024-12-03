@@ -1,0 +1,22 @@
+.list  {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin : 20px 0px;
+}
+
+.remove {
+    background-color: rgb(214, 17, 17);
+    color: white;
+    padding: 5px;
+    border-radius: 7px;
+    margin-left: 2.5px;
+}
+
+.edit {
+    background-color: rgb(6, 85, 26);
+    color: white;
+    padding: 5px;
+    border-radius: 7px;
+    margin-left: 2.5px;
+}
