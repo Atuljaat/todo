@@ -73,8 +73,8 @@ space.addEventListener('click' , (e)=>{
     let span = li.firstElementChild.firstElementChild;
     let spanTxt = li.firstElementChild.firstElementChild.textContent.trim();
     if (e.target.classList.contains('edit')){
-        editLocal(spanTxt,userInput);
         let userInput = prompt("Edit the task : ")
+        editLocal(spanTxt,userInput);
         span.textContent = userInput;
     }
 
