@@ -63,7 +63,7 @@ function showTaskonreload (){
             </div>
             </li>
         `;
-        space.appendChild(list);
+        space.prepend(list);
     })
 }
 
@@ -73,9 +73,9 @@ space.addEventListener('click' , (e)=>{
     let span = li.firstElementChild.firstElementChild;
     let spanTxt = li.firstElementChild.firstElementChild.textContent.trim();
     if (e.target.classList.contains('edit')){
+        editLocal(spanTxt,userInput);
         let userInput = prompt("Edit the task : ")
         span.textContent = userInput;
-        editLocal(spanTxt,userInput);
     }
 
     else if (e.target.classList.contains('remove')){
