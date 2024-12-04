@@ -2,7 +2,8 @@ let space = document.querySelector('#space');
 let button = document.querySelector('#btn');
 let inputs = document.querySelector('#input');
 let themes = document.querySelector('#theme');
-let choice = localStorage.getItem('theme');
+let choice = localStorage.getItem('theme') || 'light';
+localStorage.setItem('theme' , choice);
 
 button.addEventListener('click',(e)=>{
     e.preventDefault();
@@ -28,9 +29,6 @@ function saveTask (inputTxt){
 window.addEventListener('load',(e)=>{
     e.preventDefault();
     showTaskonreload();
-    if (!choice){
-        localStorage.setItem('theme' , 'light');
-    };
     checkTheme();
 })
 
