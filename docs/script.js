@@ -14,7 +14,7 @@ button.addEventListener('click',(e)=>{
 
 function saveTask (inputTxt){
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    let currentDate = new Date().toUTCString()
+    let currentDate = new Date().toLocaleString()
     let taskobj = {
         task : inputTxt,
         date : currentDate,
