@@ -143,6 +143,7 @@ function changeTheme (){
     }
     checkTheme();
 }
+ 
 
 function checkTheme (){
     let theme = localStorage.getItem('theme');
