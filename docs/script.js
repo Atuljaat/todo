@@ -1,6 +1,8 @@
 let space = document.querySelector('#space');
 let button = document.querySelector('#btn');
 let inputs = document.querySelector('#input');
+let themes = document.querySelector('#theme');
+let choice = localStorage.getItem('theme');
 
 button.addEventListener('click',(e)=>{
     e.preventDefault();
@@ -26,6 +28,10 @@ function saveTask (inputTxt){
 window.addEventListener('load',(e)=>{
     e.preventDefault();
     showTaskonreload();
+    if (!choice){
+        localStorage.setItem('theme' , 'light');
+    };
+    checkTheme();
 })
 
 
@@ -34,10 +40,10 @@ function showTaskonreload (){
     tasks.forEach( (elements) => {
         let list = document.createElement('li');
         list.innerHTML = `
-             <li class="border border-black p-2 rounded-lg my-2">
+              <li class="border border-black dark:border-orange-600 p-2 rounded-lg my-2">
                     <div class="list flex items-start  gap-4">
                        <span class="flex items-center flex-shrink-0">
-                         <img src="img/unchecked.svg" class="w-6 h-6 unchecked">
+                         <img src="img/unchecked.svg" class="w-6 h-6 unchecked dark:bg-orange-600 rounded-full">
                        </span>
  
                        <span class="text-sm md:text-lg lg:text-lg break-words flex-grow">
@@ -45,14 +51,14 @@ function showTaskonreload (){
                        </span>
                    
                        <span class="flex flex-col sm:flex-row sm:space-x-2 whitespace-nowrap flex-shrink-0">
-                         <button class="edit m-1 bg-blue-500 text-white px-2 py-1 rounded">edit</button>
-                         <button class="remove m-1 bg-red-500 text-white px-2 py-1 rounded">remove</button>
+                         <button class="edit m-1  px-2 py-1 rounded ">edit</button>
+                         <button class="remove m-1 px-2 py-1 rounded">remove</button>
                        </span>
                      </div>
-                     <div class="text-xs text-slate-700">
+                     <div class="text-xs text-slate-700 dark:text-slate-400">
                         Created at : ${elements.date} 
                      </div>
-                 </li>            
+                 </li>           
         `;
         space.prepend(list);
     })
@@ -116,7 +122,38 @@ function unchecked(e){
     img.src = 'img/unchecked.svg';
     let spanTxt = e.target.closest('li').firstElementChild.children[1];
     spanTxt.style.textDecoration = 'none';
-    spanTxt.style.color = 'black';
+    spanTxt.style.color = '#f0581e'
     img.classList.remove('checked');
     img.classList.add('unchecked');
+}
+
+themes.addEventListener('click',(e)=>{
+  changeTheme();
+})
+
+function changeTheme (){
+    let theme = localStorage.getItem('theme');
+    document.documentElement.classList.toggle('dark');
+    if (theme == 'light'){
+        localStorage.setItem('theme' , 'dark');
+        themes.setAttribute('src', 'img/dark.svg') ;
+    } else if (theme == 'dark'){
+        localStorage.setItem('theme' , 'light');
+        themes.setAttribute('src' ,'img/light.svg' );
+    }
+    checkTheme();
+}
+
+function checkTheme (){
+    let theme = localStorage.getItem('theme');
+    document.documentElement.classList.toggle('dark');
+    if (theme == 'light'){
+        localStorage.setItem('theme' , 'light');
+        themes.setAttribute('src' ,'img/dark.svg' );
+        document.documentElement.classList.remove('dark');
+    } else if (theme == 'dark'){
+        localStorage.setItem('theme' , 'dark');
+        themes.setAttribute('src', 'img/light.svg');
+        document.documentElement.classList.add('dark');
+    }
 }

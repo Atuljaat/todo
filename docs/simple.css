@@ -14,6 +14,12 @@
     margin-left: 2.5px;
 }
 
+.remove:hover{
+    background-color: rgb(231, 68, 47);
+    color: black;
+    animation: scaleUp 0.1s ease-in-out forwards;
+}
+
 .edit {
     background-color: rgb(6, 85, 26);
     color: white;
@@ -22,10 +28,16 @@
     margin-left: 2.5px;
 }
 
+.edit:hover{
+    background-color: rgb(21, 204, 67);
+    color: black;
+    animation: scaleUp 0.1s ease-in-out forwards;
+}
+
 body{
     font-family: "Poppins", sans-serif;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(100,116,128,1) 35%, rgba(0,212,255,1) 100%);
+    /* background: rgb(2,0,36); */
+    
 }
 nav{
     background: linear-gradient(90deg, rgba(0,0,48,1) 0%, rgba(20,40,60,1) 100%);
@@ -33,4 +45,13 @@ nav{
     padding: 15px;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.2);
+    }
 }
