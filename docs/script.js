@@ -1,7 +1,6 @@
 let space = document.querySelector('#space');
 let button = document.querySelector('#btn');
 let inputs = document.querySelector('#input');
-// let displayLists = document.querySelector('#lists');
 
 button.addEventListener('click',(e)=>{
     e.preventDefault();
@@ -9,63 +8,51 @@ button.addEventListener('click',(e)=>{
     if (inputTxt){
         saveTask(inputTxt);
         location.reload();
-        // showTask(inputTxt);
     }
     inputs.value = '';  
 })
 
 function saveTask (inputTxt){
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    tasks.push(inputTxt);
+    let currentDate = new Date().toUTCString()
+    let taskobj = {
+        task : inputTxt,
+        date : currentDate,
+    }
+    tasks.push(taskobj);
     localStorage.setItem('tasks' , JSON.stringify(tasks));
 }
 
 window.addEventListener('load',(e)=>{
     e.preventDefault();
-    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    tasks.forEach(element => {
-        // console.log(element);
-    });
     showTaskonreload();
 })
 
-// function showTask (inputTxt){
-//     let list = document.createElement('li');
-//         list.innerHTML = `
-//         <li>
-//         <div class="list">
-//         ${inputTxt}
-//         <span>
-//             <button class="edit"> edit </button>
-//             <button class="remove "> remove</button>
-//         </span>
-//         </div>
-//         </li>
-//         `;
-//         space.appendChild(list);
-// }
 
 function showTaskonreload (){
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     tasks.forEach( (elements) => {
         let list = document.createElement('li');
         list.innerHTML = `
-             <li>
-                   <div class="list flex items-start gap-4">
-                      <span class="flex items-center flex-shrink-0">
-                        <img src="img/unchecked.svg" class="w-6 h-6 unchecked">
-                      </span>
-
-                      <span class="text-sm md:text-lg lg:text-lg break-words flex-grow">
-                       ${elements}
-                      </span>
-                  
-                      <span class="flex flex-col sm:flex-row sm:space-x-2 whitespace-nowrap flex-shrink-0">
-                        <button class="edit m-1 bg-blue-500 text-white px-2 py-1 rounded">edit</button>
-                        <button class="remove m-1 bg-red-500 text-white px-2 py-1 rounded">remove</button>
-                      </span>
-                    </div>
-                </li>
+             <li class="border border-black p-2 rounded-lg my-2">
+                    <div class="list flex items-start  gap-4">
+                       <span class="flex items-center flex-shrink-0">
+                         <img src="img/unchecked.svg" class="w-6 h-6 unchecked">
+                       </span>
+ 
+                       <span class="text-sm md:text-lg lg:text-lg break-words flex-grow">
+                        ${elements.task}
+                       </span>
+                   
+                       <span class="flex flex-col sm:flex-row sm:space-x-2 whitespace-nowrap flex-shrink-0">
+                         <button class="edit m-1 bg-blue-500 text-white px-2 py-1 rounded">edit</button>
+                         <button class="remove m-1 bg-red-500 text-white px-2 py-1 rounded">remove</button>
+                       </span>
+                     </div>
+                     <div class="text-xs text-slate-700">
+                        Created at : ${elements.date} 
+                     </div>
+                 </li>            
         `;
         space.prepend(list);
     })
