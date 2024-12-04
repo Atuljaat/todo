@@ -24,7 +24,7 @@ window.addEventListener('load',(e)=>{
     e.preventDefault();
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     tasks.forEach(element => {
-        console.log(element);
+        // console.log(element);
     });
     showTaskonreload();
 })
@@ -50,18 +50,22 @@ function showTaskonreload (){
     tasks.forEach( (elements) => {
         let list = document.createElement('li');
         list.innerHTML = `
-            <li>
-            <div class="list">
-            <span>
-            ${elements}
-            </span>
+             <li>
+                   <div class="list flex items-start gap-4">
+                      <span class="flex items-center flex-shrink-0">
+                        <img src="img/unchecked.svg" class="w-6 h-6 unchecked">
+                      </span>
 
-            <span>
-                <button class="edit"> edit </button>
-                <button class="remove "> remove</button>
-            </span>
-            </div>
-            </li>
+                      <span class="text-sm md:text-lg lg:text-lg break-words flex-grow">
+                       ${elements}
+                      </span>
+                  
+                      <span class="flex flex-col sm:flex-row sm:space-x-2 whitespace-nowrap flex-shrink-0">
+                        <button class="edit m-1 bg-blue-500 text-white px-2 py-1 rounded">edit</button>
+                        <button class="remove m-1 bg-red-500 text-white px-2 py-1 rounded">remove</button>
+                      </span>
+                    </div>
+                </li>
         `;
         space.prepend(list);
     })
@@ -70,8 +74,8 @@ function showTaskonreload (){
 space.addEventListener('click' , (e)=>{
     e.preventDefault();
     let li =  e.target.closest('li');
-    let span = li.firstElementChild.firstElementChild;
-    let spanTxt = li.firstElementChild.firstElementChild.textContent.trim();
+    let span = li.firstElementChild.children[1];
+    let spanTxt = span.textContent.trim();
     if (e.target.classList.contains('edit')){
         let userInput = prompt("Edit the task : ");
         if (userInput){
@@ -81,8 +85,18 @@ space.addEventListener('click' , (e)=>{
     }
 
     else if (e.target.classList.contains('remove')){
+        
         li.remove();
         removeLocal(spanTxt);
+        console.log(span)
+    } 
+    else if (e.target.classList.contains('unchecked')){
+        console.log(e.target);
+        checked(e);
+    }
+    else if (e.target.classList.contains('checked')){
+        console.log('idk')
+        unchecked(e);
     }
 })
 
@@ -98,4 +112,24 @@ function removeLocal (txt){
     let num = tasks.indexOf(txt);
     tasks.splice(num,1);
     localStorage.setItem('tasks' , JSON.stringify(tasks));
+}
+
+function checked (e){
+    let img = e.target;
+    img.src = 'img/checked.svg';
+    let spanTxt = e.target.closest('li').firstElementChild.children[1];
+    spanTxt.style.textDecoration = 'line-through';
+    spanTxt.style.color = 'grey';
+    img.classList.remove('unchecked');
+    img.classList.add('checked');
+}
+
+function unchecked(e){
+    let img = e.target;
+    img.src = 'img/unchecked.svg';
+    let spanTxt = e.target.closest('li').firstElementChild.children[1];
+    spanTxt.style.textDecoration = 'none';
+    spanTxt.style.color = 'black';
+    img.classList.remove('checked');
+    img.classList.add('unchecked');
 }
