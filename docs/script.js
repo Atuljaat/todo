@@ -38,7 +38,7 @@ function showTaskonreload (){
     tasks.forEach( (elements) => {
         let list = document.createElement('li');
         list.innerHTML = `
-              <li class="border border-black dark:border-orange-600 p-2 rounded-lg my-2">
+                <li class="border border-black bg-cyan-300 dark:border-orange-600 dark:bg-slate-950 p-2 rounded-lg my-2">
                     <div class="list flex items-start  gap-4">
                        <span class="flex items-center flex-shrink-0">
                          <img src="img/unchecked.svg" class="w-6 h-6 unchecked dark:bg-orange-600 rounded-full">
