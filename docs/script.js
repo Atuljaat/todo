@@ -67,10 +67,13 @@ space.addEventListener('click' , (e)=>{
     let li =  e.target.closest('li');
     let span = li.firstElementChild.children[1];
     let spanTxt = span.textContent.trim();
+    let spantime = li.children[1].textContent.trim().split(' ')
+    let time = spantime.slice(3).join(' ');
     if (e.target.classList.contains('edit')){
         let userInput = prompt("Edit the task : ");
         if (userInput){
-            editLocal(spanTxt,userInput);
+            console.log(time)
+            editLocal(spanTxt,time,userInput);
             span.textContent = userInput;
         }
     }
@@ -82,19 +85,20 @@ space.addEventListener('click' , (e)=>{
         console.log(span)
     } 
     else if (e.target.classList.contains('unchecked')){
-        console.log(e.target);
         checked(e);
+        
     }
     else if (e.target.classList.contains('checked')){
-        console.log('idk')
         unchecked(e);
+          
     }
 })
 
-function editLocal (txt,input){
+function editLocal (txt,time,input){
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    let num = tasks.indexOf(txt);
-    tasks.splice(num,1,input);
+    // let num = tasks.(txt);
+    let num = tasks.findIndex(obj => obj.task == txt && obj.date == time);
+    tasks[num].task = input;
     localStorage.setItem('tasks' , JSON.stringify(tasks));
 }
 
@@ -117,12 +121,14 @@ function checked (e){
 
 function unchecked(e){
     let img = e.target;
+    let theme = localStorage.getItem('theme')
     img.src = 'img/unchecked.svg';
     let spanTxt = e.target.closest('li').firstElementChild.children[1];
     spanTxt.style.textDecoration = 'none';
     spanTxt.style.color = '#f0581e'
     img.classList.remove('checked');
-    img.classList.add('unchecked');
+    img.classList.add('unchecked'); 
+    location.reload()
 }
 
 themes.addEventListener('click',(e)=>{

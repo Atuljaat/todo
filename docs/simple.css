@@ -43,8 +43,6 @@ nav{
     background: linear-gradient(90deg, rgba(0,0,48,1) 0%, rgba(20,40,60,1) 100%);
     color: white;
     padding: 15px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
 }
 
 @keyframes scaleUp {
